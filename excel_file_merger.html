@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>엑셀 파일 병합기 | CSV · XLSX</title>
+<style>
+:root{color-scheme:light;--ink:#172339;--muted:#68778b;--pale:#f4f7fb;--border:#e1e7f1;--navy:#23366e;--blue:#4e6fe8;--blue-soft:#eef2ff;--green:#0d8e70;--red:#be4b55;--shadow:0 14px 38px rgba(31,49,99,.055)}
+*{box-sizing:border-box}body{margin:0;background:var(--pale);color:var(--ink);font-family:Inter,Pretendard,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:14px;line-height:1.6}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.48;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible,.dropzone:focus-visible{outline:3px solid #9bb4fa;outline-offset:3px}svg{display:block}.shell{max-width:1190px;margin:0 auto;padding:0 28px 76px}.topbar{min-height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e2e8f1}.brand{display:flex;gap:12px;align-items:center;font-weight:800;letter-spacing:-.6px;font-size:18px}.logo{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--navy);color:#fff;font-size:17px;box-shadow:0 5px 16px rgba(35,54,110,.18)}.local{display:flex;align-items:center;gap:8px;color:#60718b;font-size:12px;font-weight:650}.dot{height:7px;width:7px;border-radius:50%;background:#17aa82}.hero{padding:46px 0 33px;display:flex;gap:28px;align-items:end;justify-content:space-between}.eyebrow{font-size:12px;letter-spacing:1.9px;color:#5873ac;font-weight:800;margin-bottom:12px}.hero h1{font-size:clamp(29px,3.7vw,44px);letter-spacing:-1.8px;line-height:1.27;margin:0 0 14px;font-weight:800}.hero p{color:var(--muted);font-size:15px;line-height:1.8;margin:0}.pill{display:inline-flex;gap:8px;align-items:center;white-space:nowrap;border:1px solid #d9e3f2;background:#fff;border-radius:100px;padding:9px 14px;color:#63748b;font-size:12px}.steps{display:flex;gap:20px;align-items:center;margin:0 0 26px;color:#697a91;font-size:13px}.step{display:flex;gap:9px;align-items:center}.step span{display:grid;place-items:center;height:25px;width:25px;border-radius:50%;background:#e7ecf7;color:#536e9b;font-weight:800;font-size:12px}.step:first-child span{color:#fff;background:var(--blue)}.step-arrow{color:#b0bfd4}.layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(320px,1fr);gap:22px;align-items:start}.panel{background:#fff;border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow)}.panel-section{padding:26px}.panel-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:17px}.panel h2{font-size:16px;letter-spacing:-.4px;margin:0;font-weight:800}.section-kicker{color:var(--muted);font-size:12px}.dropzone{border:1.8px dashed #b8c7e2;background:linear-gradient(135deg,#f8fbff,#f5f7ff);min-height:225px;border-radius:15px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:11px;text-align:center;padding:28px 16px;transition:border-color .18s,background .18s,transform .18s;cursor:pointer}.dropzone:hover,.dropzone.dragging{border-color:var(--blue);background:#edf2ff}.drop-icon{width:57px;height:57px;background:#e8edff;color:#4968cf;display:grid;place-items:center;border-radius:17px;margin-bottom:3px}.dropzone strong{font-size:16px;letter-spacing:-.35px}.dropzone small{font-size:12px;color:var(--muted)}.browse{border:1px solid #cbd7ec;background:white;padding:9px 17px;border-radius:9px;font-weight:750;color:#3c59a7;margin-top:3px}.browse:hover{border-color:#8195d4;background:#fafbff}.panel-divider{height:1px;background:var(--border)}.filehead{margin-bottom:13px}.mutebtn{border:0;background:none;color:#64789a;padding:6px 0;font-size:12px;font-weight:650}.mutebtn:hover{color:#be4b55}.files{display:flex;flex-direction:column;gap:9px}.empty-state{background:#fafbfd;border-radius:11px;padding:18px;color:#8a97a7;text-align:center;font-size:13px}.file{display:flex;gap:12px;align-items:center;padding:12px;border-radius:11px;border:1px solid #e6ebf3;background:#fff}.file-icon{height:41px;width:41px;display:grid;place-items:center;background:#e9f6f0;border-radius:10px;color:#0d946b;font-weight:850;flex:0 0 auto;font-size:11px;letter-spacing:.2px}.file-icon.csv{background:#f2ebff;color:#6c56be}.file-body{min-width:0;flex:1}.filename{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:720;font-size:13px}.filemeta{font-size:11px;color:#7e8ca0;margin-top:2px}.filemeta.error{color:var(--red)}.iconbtn{width:29px;height:29px;display:grid;place-items:center;background:none;border:0;border-radius:7px;color:#8a98aa;flex:0 0 auto}.iconbtn:hover{background:#fff0f1;color:#bd5663}.settings{padding:24px 24px 19px}.settinglabel{font-weight:730;color:#3f4d65;font-size:12px;margin-bottom:9px;display:block}.select{appearance:none;background:white url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%23647491" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="m6 9 6 6 6-6"/%3E%3C/svg%3E') right 13px center/14px no-repeat;border:1px solid #d9e2f0;border-radius:10px;padding:12px 35px 12px 13px;width:100%;color:#344156;font-weight:660;cursor:pointer}.option-list{display:grid;gap:13px;margin:24px 0 0}.checkrow{display:flex;align-items:flex-start;gap:11px;cursor:pointer}.checkrow input{accent-color:#4c70e6;width:16px;height:16px;flex:0 0 auto;margin:3px 0 0}.checkrow .optiontext{font-size:13px;color:#3c4860;font-weight:620}.checkrow small{display:block;color:#8a98aa;font-size:11px;margin-top:2px;font-weight:400}.tip{border-radius:11px;background:#f5f7fc;padding:12px 13px;color:#64748d;font-size:11px;line-height:1.7;margin-top:20px}.tip strong{color:#4e668f}.results{margin-top:22px}.result-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:17px}.metrics{display:flex;gap:10px;flex-wrap:wrap}.metric{background:#f6f8fd;border:1px solid #e9eef8;border-radius:10px;padding:12px 15px;min-width:112px;flex:1}.metric .number{display:block;font-size:21px;letter-spacing:-.7px;line-height:1.3;color:#2c4581;font-weight:800}.metric .small{display:block;font-size:11px;color:#7b8da5;margin-top:2px}.preview-scroll{overflow:auto;max-height:336px;border:1px solid #e4eaf3;border-radius:10px}.preview-table{border-collapse:collapse;min-width:100%;white-space:nowrap;font-size:12px}.preview-table th{position:sticky;top:0;text-align:left;background:#eef2fa;color:#506483;font-weight:800;padding:11px 14px;border-bottom:1px solid #dce5f2;max-width:240px;overflow:hidden;text-overflow:ellipsis}.preview-table td{color:#42506a;padding:9px 14px;border-bottom:1px solid #eef1f7;max-width:240px;overflow:hidden;text-overflow:ellipsis}.preview-table th+th,.preview-table td+td{border-left:1px solid #edf1f7}.preview-table tr:last-child td{border-bottom:0}.preview-none{display:grid;place-items:center;min-height:135px;color:#93a0b2;font-size:12px;text-align:center}.preview-note{color:#8a99ac;font-size:11px;margin-top:12px}.output{padding:22px 25px 25px}.format-options{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.format{border:1.5px solid #dce4f1;padding:12px 13px;border-radius:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px;transition:all .15s}.format.active{border-color:#6c82e8;background:#f2f5ff}.format input{position:absolute;opacity:0;pointer-events:none}.format strong{font-size:13px}.format small{display:block;color:#8996a9;font-size:11px}.format .radio{width:17px;height:17px;border:1.5px solid #bcc9dc;border-radius:50%;position:relative;flex:none}.format.active .radio{border-color:#5473e6}.format.active .radio:before{content:"";background:#5473e6;position:absolute;inset:3px;border-radius:50%}.download{display:flex;gap:9px;align-items:center;justify-content:center;width:100%;background:#283f85;border:1px solid #283f85;color:#fff;padding:14px 16px;border-radius:11px;font-size:14px;font-weight:800;margin-top:20px;box-shadow:0 6px 16px rgba(40,63,133,.14)}.download:hover:not(:disabled){background:#1c306e}.download svg{width:18px;height:18px}.notice{text-align:center;font-size:11px;color:#93a0b1;margin:11px 0 0}.footer{margin-top:29px;color:#94a0b1;font-size:11px;display:flex;justify-content:space-between;gap:12px}.warning{display:none;margin-top:12px;color:#a56633;font-size:12px;background:#fff6e9;border:1px solid #f4dfbf;border-radius:9px;padding:9px 12px}.warning.show{display:block}.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,14px);opacity:0;pointer-events:none;background:#213252;color:white;font-size:13px;border-radius:11px;padding:12px 19px;max-width:min(580px,calc(100vw - 40px));box-shadow:0 16px 36px rgba(16,33,59,.21);transition:opacity .2s,transform .2s;z-index:99}.toast.show{transform:translate(-50%,0);opacity:1}.help{font-size:12px;color:#8492a6;margin-top:13px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:850px){.layout{grid-template-columns:1fr}.hero{padding-top:33px}.pill{display:none}.panel-section,.settings{padding:20px}.steps{flex-wrap:wrap;gap:9px}.step-arrow{display:none}.footer{flex-direction:column}}@media(max-width:480px){.shell{padding:0 15px 45px}.topbar{min-height:66px}.brand{font-size:16px}.local{font-size:10px}.hero h1{font-size:29px}.hero p{font-size:13px}.dropzone{min-height:190px}.metric{min-width:80px;padding:10px}.metric .number{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="shell">
+ <header class="topbar">
+  <div class="brand"><div class="logo" aria-hidden="true">▦</div><span>SheetMerge</span></div>
+  <div class="local"><span class="dot"></span><span>브라우저 내부 처리 · 서버 업로드 없음</span></div>
+ </header>
+ <section class="hero">
+  <div><div class="eyebrow">CSV + XLSX · SMART MERGE</div><h1>흩어진 엑셀 파일을<br>하나로, 간편하게.</h1><p>여러 CSV·XLSX 파일을 올리고 병합 방식을 선택하세요.<br>미리 확인한 후 원하는 형식으로 바로 저장할 수 있습니다.</p></div>
+  <div class="pill">✦ 설치 없이 바로 사용</div>
+ </section>
+ <div class="steps" aria-label="병합 순서"><div class="step"><span>1</span>파일 업로드</div><span class="step-arrow">→</span><div class="step"><span>2</span>병합 옵션 설정</div><span class="step-arrow">→</span><div class="step"><span>3</span>다운로드</div></div>
+ <div class="layout">
+  <main>
+   <section class="panel">
+    <div class="panel-section">
+     <div class="panel-header"><h2>파일 업로드</h2><span class="section-kicker">여러 파일을 한 번에 선택할 수 있어요</span></div>
+     <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="파일 추가: 클릭하거나 파일을 끌어다 놓으세요">
+      <div class="drop-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg></div>
+      <strong>파일을 여기에 끌어다 놓으세요</strong>
+      <small>CSV, XLSX 형식 지원 · 여러 파일 동시 업로드</small>
+      <button type="button" id="browseBtn" class="browse">파일 선택하기</button>
+     </div>
+     <input type="file" id="fileInput" accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple hidden>
+     <div class="help">* 비밀번호가 설정된 XLSX 파일이나 구형 XLS 파일은 지원하지 않습니다.</div>
+    </div>
+    <div class="panel-divider"></div>
+    <div class="panel-section">
+     <div class="panel-header filehead"><h2>업로드한 파일 <span id="fileCount" style="color:#536ed2">(0)</span></h2><button id="clearBtn" class="mutebtn" type="button" disabled>모두 삭제</button></div>
+     <div id="fileList" class="files" aria-live="polite"><div class="empty-state">선택된 파일이 없습니다.</div></div>
+    </div>
+   </section>
+   <section class="panel results" aria-label="병합 미리보기">
+    <div class="panel-section">
+     <div class="result-top"><h2>병합 미리보기</h2><span class="section-kicker">첫 10개 행 표시</span></div>
+     <div class="metrics"><div class="metric"><span class="number" id="rowCount">0</span><span class="small">데이터 행</span></div><div class="metric"><span class="number" id="columnCount">0</span><span class="small">열</span></div><div class="metric"><span class="number" id="sheetCount">0</span><span class="small">병합 대상 시트</span></div></div>
+     <div id="preview" style="margin-top:17px"><div class="preview-none">파일을 업로드하면 병합 결과를 미리 볼 수 있습니다.</div></div>
+     <div id="previewNote" class="preview-note"></div>
+     <div id="warning" class="warning" role="status"></div>
+    </div>
+   </section>
+  </main>
+  <aside>
+   <section class="panel settings">
+    <div class="panel-header"><h2>병합 설정</h2><span class="section-kicker">MERGE OPTIONS</span></div>
+    <label for="mergeMode" class="settinglabel">열을 합치는 기준</label>
+    <select id="mergeMode" class="select"><option value="name">열 이름 기준 (추천)</option><option value="position">열 위치 기준</option></select>
+    <div class="option-list">
+     <label class="checkrow"><input type="checkbox" id="hasHeader" checked><span class="optiontext">첫 번째 행을 열 제목으로 사용<small>각 파일의 제목 행은 한 번만 표시</small></span></label>
+     <label class="checkrow"><input type="checkbox" id="allSheets"><span class="optiontext">XLSX의 모든 시트 포함<small>해제 시 파일마다 첫 번째 시트만 병합</small></span></label>
+     <label class="checkrow"><input type="checkbox" id="addSource"><span class="optiontext">원본 파일명·시트명 열 추가<small>각 행이 어디서 왔는지 기록</small></span></label>
+     <label class="checkrow"><input type="checkbox" id="skipBlank" checked><span class="optiontext">완전히 비어 있는 행 제외</span></label>
+     <label class="checkrow"><input type="checkbox" id="deduplicate"><span class="optiontext">중복 데이터 행 제거<small>원본 출처 열은 비교에서 제외</small></span></label>
+    </div>
+    <div class="tip"><strong>병합 방식 안내</strong><br><b>열 이름 기준</b>: 열 순서가 달라도 같은 이름끼리 정렬하고, 없는 값은 빈칸으로 채웁니다.<br><b>열 위치 기준</b>: 각 파일의 첫째·둘째 열을 순서대로 합칩니다.</div>
+   </section>
+   <section class="panel output" style="margin-top:20px">
+    <div class="panel-header" style="margin-bottom:0"><h2>내보내기</h2><span class="section-kicker">EXPORT FILE</span></div>
+    <div class="format-options" role="radiogroup" aria-label="다운로드 파일 형식">
+     <label class="format active" data-format="xlsx"><input name="format" type="radio" value="xlsx" checked><span><strong>XLSX</strong><small>Excel 통합 문서</small></span><span class="radio"></span></label>
+     <label class="format" data-format="csv"><input name="format" type="radio" value="csv"><span><strong>CSV</strong><small>쉼표 구분 텍스트</small></span><span class="radio"></span></label>
+    </div>
+    <button type="button" class="download" id="downloadBtn" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 17v3h14v-3"/></svg><span id="downloadText">병합 파일 다운로드</span></button>
+    <p class="notice">CSV는 한글 호환을 위해 UTF-8 BOM으로 저장됩니다.</p>
+   </section>
+  </aside>
+ </div>
+ <footer class="footer"><span>SheetMerge · 단일 HTML 파일 · 오프라인 사용 가능</span><span>모든 파일은 사용 중인 브라우저 안에서만 처리됩니다.</span></footer>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+// SheetMerge: self-contained CSV/XLSX parser and OpenXML (XLSX) exporter.
+// No third-party libraries, network calls, or server uploads are required.
+const $ = (s) => document.querySelector(s);
+const state = { files: [], merged: { headers: [], rows: [], sheets: 0 }, serial: 0 };
+const textEncoder = new TextEncoder();
+const formatNumber = n => n.toLocaleString('ko-KR');
+const cleanText = v => (v === null || v === undefined) ? '' : String(v);
+let toastTimer;
+function toast(message) {
+  const el = $('#toast'); el.textContent = message; el.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 3400);
+}
+function byteSize(n) { return n < 1024 ? `${n} B` : n < 1048576 ? `${(n/1024).toFixed(1)} KB` : `${(n/1048576).toFixed(1)} MB`; }
+
+// ---------- CSV reader ----------
+function decodeCSV(buffer) {
+  const b = new Uint8Array(buffer);
+  if (b[0] === 0xff && b[1] === 0xfe) return new TextDecoder('utf-16le').decode(b.slice(2));
+  if (b[0] === 0xfe && b[1] === 0xff) return new TextDecoder('utf-16be').decode(b.slice(2));
+  if (b[0] === 0xef && b[1] === 0xbb && b[2] === 0xbf) return new TextDecoder('utf-8').decode(b.slice(3));
+  try { return new TextDecoder('utf-8', {fatal: true}).decode(b); }
+  catch { return new TextDecoder('euc-kr').decode(b); }
+}
+function parseDelimited(text, delimiter, maxRows = Infinity) {
+  const rows = []; let row = []; let field = ''; let quoted = false;
+  let i = 0;
+  // A BOM can also appear in a string supplied from another source.
+  if (text.charCodeAt(0) === 0xfeff) i = 1;
+  for (; i < text.length; i++) {
+    const ch = text[i];
+    if (quoted) {
+      if (ch === '"' && text[i+1] === '"') { field += '"'; i++; }
+      else if (ch === '"') quoted = false;
+      else field += ch;
+    } else if (ch === '"' && field === '') quoted = true;
+    else if (ch === delimiter) { row.push(field); field = ''; }
+    else if (ch === '\r' || ch === '\n') {
+      row.push(field); rows.push(row); row = []; field = '';
+      if (ch === '\r' && text[i+1] === '\n') i++;
+      if (rows.length >= maxRows) return rows;
+    } else field += ch;
+  }
+  if (field !== '' || row.length > 0 || (text.length && text[text.length-1] !== '\n' && text[text.length-1] !== '\r')) {
+    row.push(field); rows.push(row);
+  }
+  return rows;
+}
+function guessDelimiter(text) {
+  let best = ',', score = -Infinity;
+  for (const delimiter of [',', '\t', ';', '|']) {
+    const sample = parseDelimited(text, delimiter, 14).filter(r => r.some(v => v !== ''));
+    if (!sample.length) continue;
+    const lengths = sample.map(r => r.length);
+    const multi = lengths.filter(n => n > 1).length;
+    const avg = lengths.reduce((a,b)=>a+b,0)/lengths.length;
+    const variance = lengths.reduce((a,b)=>a+(b-avg)**2,0)/lengths.length;
+    const s = (multi ? 200 : 0) + multi * 4 + avg * 2 - variance * 10;
+    if (s > score) { best = delimiter; score = s; }
+  }
+  return best;
+}
+async function loadCSV(file) {
+  const content = decodeCSV(await file.arrayBuffer());
+  const delimiter = guessDelimiter(content);
+  return [{ name: 'CSV', rows: parseDelimited(content, delimiter) }];
+}
+
+// ---------- ZIP reader: File API + native DEFLATE in modern browsers ----------
+function zipEntries(buffer) {
+  const bytes = new Uint8Array(buffer), dv = new DataView(buffer), length = bytes.length;
+  let eocd = -1;
+  for (let i = length - 22; i >= Math.max(0, length - 65557); i--) {
+    if (dv.getUint32(i, true) === 0x06054b50) { eocd = i; break; }
+  }
+  if (eocd < 0) throw new Error('유효한 XLSX 압축 파일이 아닙니다.');
+  const numEntries = dv.getUint16(eocd + 10, true);
+  let ptr = dv.getUint32(eocd + 16, true);
+  if (ptr === 0xffffffff || numEntries === 0xffff) throw new Error('ZIP64 형식은 지원하지 않습니다.');
+  const entries = new Map();
+  for (let i=0; i<numEntries; i++) {
+    if (ptr+46 > length || dv.getUint32(ptr,true) !== 0x02014b50) throw new Error('XLSX 압축 파일의 목차가 손상되었습니다.');
+    const flags = dv.getUint16(ptr+8,true), method = dv.getUint16(ptr+10,true), compressedSize = dv.getUint32(ptr+20,true);
+    const fnLen = dv.getUint16(ptr+28,true), exLen = dv.getUint16(ptr+30,true), cmLen = dv.getUint16(ptr+32,true);
+    const local = dv.getUint32(ptr+42,true);
+    const name = new TextDecoder('utf-8').decode(bytes.subarray(ptr+46,ptr+46+fnLen)).replace(/\\/g,'/');
+    if (flags & 1) throw new Error('암호화된 XLSX 파일은 지원하지 않습니다.');
+    entries.set(name, { method, compressedSize, local });
+    ptr += 46+fnLen+exLen+cmLen;
+  }
+  return {
+    has: path => entries.has(path),
+    async get(path) {
+      const e = entries.get(path);
+      if (!e) throw new Error(`XLSX 내부 파일을 찾지 못했습니다: ${path}`);
+      const loc = e.local;
+      if (loc+30 > length || dv.getUint32(loc,true) !== 0x04034b50) throw new Error('압축 항목을 읽을 수 없습니다.');
+      const start = loc+30+dv.getUint16(loc+26,true)+dv.getUint16(loc+28,true);
+      if (start+e.compressedSize > length) throw new Error('잘못된 XLSX 데이터 길이입니다.');
+      const slice = bytes.slice(start,start+e.compressedSize);
+      if (e.method === 0) return slice;
+      if (e.method !== 8) throw new Error('지원하지 않는 XLSX 압축 방식입니다.');
+      if (typeof DecompressionStream === 'undefined') throw new Error('최신 Chrome, Edge, Firefox 브라우저에서 열어 주세요.');
+      try {
+        const stream = new Blob([slice]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
+        return new Uint8Array(await new Response(stream).arrayBuffer());
+      } catch { throw new Error('압축된 XLSX 시트를 해제하지 못했습니다. 브라우저를 업데이트해 주세요.'); }
+    },
+    async xml(path) { return parseXML(new TextDecoder('utf-8').decode(await this.get(path))); }
+  };
+}
+function parseXML(s) {
+  const xml = new DOMParser().parseFromString(s,'application/xml');
+  if (xml.getElementsByTagName('parsererror').length) throw new Error('XLSX 내부 XML을 분석할 수 없습니다.');
+  return xml;
+}
+const allTags = (node, localName) => Array.from(node.getElementsByTagNameNS('*',localName));
+const childTag = (node, localName) => Array.from(node.children || []).find(el => el.localName === localName) || null;
+function normalizeZipPath(basePath, target) {
+  if (target.startsWith('/')) return target.replace(/^\/+/, '');
+  const items = basePath.split('/').slice(0,-1).concat(target.replace(/\\/g,'/').split('/'));
+  const out = [];
+  for (const p of items) { if (p === '..') out.pop(); else if (p && p !== '.') out.push(p); }
+  return out.join('/');
+}
+function getStringParts(node) { return allTags(node,'t').map(el=>el.textContent || '').join(''); }
+function styleDateFlags(doc) {
+  if (!doc) return [];
+  const customFormats = new Map(allTags(doc,'numFmt').map(el=>[Number(el.getAttribute('numFmtId')),el.getAttribute('formatCode')||'']));
+  const xfsNode = allTags(doc,'cellXfs')[0];
+  if (!xfsNode) return [];
+  const builtinDateIDs = new Set([14,15,16,17,18,19,20,21,22,27,30,36,45,46,47,50,57]);
+  return Array.from(xfsNode.children).map(xf => {
+    const id = Number(xf.getAttribute('numFmtId') || 0);
+    if (builtinDateIDs.has(id)) return true;
+    const fmt = (customFormats.get(id) || '').replace(/"(?:[^"]|"")*"/g,'').replace(/\\./g,'').replace(/\[[^\]]+\]/g,'');
+    return /[ymdhs]/i.test(fmt) && !/^(general|0[.,#%0Ee+\- ]*)$/i.test(fmt);
+  });
+}
+function excelDate(serial) {
+  if (!Number.isFinite(serial)) return serial;
+  const t = Date.UTC(1899,11,30) + Math.round(serial*86400000);
+  const d = new Date(t);
+  if (isNaN(d.getTime())) return serial;
+  const iso = d.toISOString();
+  // ISO date (and optional time) is interoperable as merged plain-text content.
+  return iso.slice(11,19) === '00:00:00' ? iso.slice(0,10) : iso.slice(0,19).replace('T',' ');
+}
+function columnToIndex(reference) {
+  const m = /^[A-Z]+/i.exec(reference || ''); if (!m) return -1;
+  let n = 0; for (const c of m[0].toUpperCase()) n=n*26+c.charCodeAt(0)-64;
+  return n-1;
+}
+function readWorksheet(xml, sharedStrings, dateFlags) {
+  const data = allTags(xml,'sheetData')[0]; if (!data) return [];
+  const rows = [];
+  for (const rowElem of Array.from(data.children).filter(x=>x.localName==='row')) {
+    const cells = []; let next = 0;
+    for (const cell of Array.from(rowElem.children).filter(x=>x.localName==='c')) {
+      const col = columnToIndex(cell.getAttribute('r'));
+      const idx = col >= 0 ? col : next;
+      next = idx+1;
+      const typ = cell.getAttribute('t') || '';
+      const valueNode = childTag(cell,'v');
+      const value = valueNode ? valueNode.textContent : '';
+      let result = '';
+      if (typ === 'inlineStr') result = getStringParts(childTag(cell,'is') || cell);
+      else if (typ === 's') result = sharedStrings[Number(value)] ?? '';
+      else if (typ === 'b') result = value === '1';
+      else if (typ === 'e') result = value || '';
+      else if (typ === 'str') result = value || '';
+      else if (value !== '') {
+        const n = Number(value); result = Number.isFinite(n) ? n : value;
+        if (typeof result === 'number' && dateFlags[Number(cell.getAttribute('s') || 0)]) result = excelDate(result);
+      } else if (childTag(cell,'f')) result = '=' + (childTag(cell,'f').textContent || '');
+      cells[idx] = result;
+    }
+    rows.push(cells);
+  }
+  return rows;
+}
+async function loadXLSX(file) {
+  const z = zipEntries(await file.arrayBuffer());
+  const workbook = await z.xml('xl/workbook.xml');
+  const rels = await z.xml('xl/_rels/workbook.xml.rels');
+  const relMap = new Map(allTags(rels,'Relationship').map(el => [el.getAttribute('Id'),el.getAttribute('Target')]));
+  const strings = z.has('xl/sharedStrings.xml') ? allTags(await z.xml('xl/sharedStrings.xml'),'si').map(getStringParts) : [];
+  const styleFlags = z.has('xl/styles.xml') ? styleDateFlags(await z.xml('xl/styles.xml')) : [];
+  const sheets = [];
+  for (const sheet of allTags(workbook,'sheet')) {
+    const id = sheet.getAttribute('r:id') || sheet.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships','id');
+    const target = relMap.get(id);
+    if (!target) continue;
+    const path = normalizeZipPath('xl/workbook.xml',target);
+    if (!z.has(path)) continue;
+    sheets.push({name: sheet.getAttribute('name') || `시트${sheets.length+1}`, rows: readWorksheet(await z.xml(path),strings,styleFlags)});
+  }
+  if (!sheets.length) throw new Error('읽을 수 있는 워크시트가 없습니다.');
+  return sheets;
+}
+
+// ---------- Merge engine ----------
+function isBlank(v) { return v === null || v === undefined || cleanText(v).trim() === ''; }
+function sheetWidth(rows) { let max=0; for (const row of rows) max = Math.max(max,row.length); return max; }
+function uniqueHeaders(raw,width) {
+  const counts = new Map(), used = new Set(), result = [];
+  for (let c=0;c<width;c++) {
+    const base = cleanText(raw[c]).trim() || `열 ${c+1}`;
+    let suffix = (counts.get(base)||0)+1;
+    counts.set(base,suffix);
+    let name = suffix===1 ? base : `${base} (${suffix})`;
+    while (used.has(name)) { suffix++; name = `${base} (${suffix})`; }
+    used.add(name); result.push(name);
+  }
+  return result;
+}
+function uniqueExtra(base, used) { let result=base, n=2; while (used.includes(result)) result=`${base} (${n++})`; return result; }
+function buildMerged() {
+  const byName = $('#mergeMode').value === 'name';
+  const hasHeader = $('#hasHeader').checked, allSheets = $('#allSheets').checked;
+  const addSource = $('#addSource').checked, skipBlank = $('#skipBlank').checked, deduplicate = $('#deduplicate').checked;
+  const sources = [];
+  for (const entry of state.files) {
+    if (!entry.sheets || entry.error) continue;
+    for (const sheet of (allSheets ? entry.sheets : entry.sheets.slice(0,1))) {
+      if (!sheet.rows.length) continue;
+      const width = sheetWidth(sheet.rows);
+      if (width===0) continue;
+      const headers = hasHeader ? uniqueHeaders(sheet.rows[0],width) : Array.from({length:width},(_,i)=>`열 ${i+1}`);
+      const data = sheet.rows.slice(hasHeader ? 1 : 0);
+      sources.push({filename:entry.file.name, sheet:sheet.name, headers, data});
+    }
+  }
+  const headers = [];
+  if (byName) {
+    const seen = new Set();
+    for (const source of sources) for (const header of source.headers) {
+      if (!seen.has(header)) { seen.add(header); headers.push(header); }
+    }
+  } else if (sources.length) {
+    const max = Math.max(...sources.map(s=>s.headers.length));
+    headers.push(...sources[0].headers);
+    for (let i=headers.length; i<max;i++) headers.push(uniqueExtra(`열 ${i+1}`,headers));
+  }
+  const dataHeaders = [...headers];
+  if (addSource && headers.length) { headers.push(uniqueExtra('원본 파일',headers)); headers.push(uniqueExtra('원본 시트',headers)); }
+  const map = new Map(dataHeaders.map((h,i)=>[h,i]));
+  const out = [], seenRows = new Set();
+  for (const source of sources) {
+    const indices = byName ? source.headers.map(h=>map.get(h)) : source.headers.map((_,i)=>i);
+    for (const row of source.data) {
+      if (skipBlank && row.every(isBlank)) continue;
+      const merged = Array(dataHeaders.length).fill('');
+      for (let i=0;i<indices.length;i++) if (indices[i] !== undefined) merged[indices[i]] = row[i] ?? '';
+      if (deduplicate) {
+        const key = JSON.stringify(merged);
+        if (seenRows.has(key)) continue;
+        seenRows.add(key);
+      }
+      if (addSource) merged.push(source.filename,source.sheet);
+      out.push(merged);
+    }
+  }
+  return {headers, rows:out, sheets:sources.length};
+}
+
+// ---------- XLSX writer (standards-compliant OpenXML in an uncompressed ZIP) ----------
+const enc = str => textEncoder.encode(str);
+const escapeXML = value => cleanText(value).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
+function colRef(n) { let result=''; for (n++;n>0;n=Math.floor((n-1)/26)) result=String.fromCharCode(65+(n-1)%26)+result; return result; }
+function typeForExcel(v) {
+  if (v === null || v === undefined || v === '') return '';
+  if (typeof v === 'boolean') return 'b';
+  if (typeof v === 'number' && Number.isFinite(v)) return 'n';
+  const s = cleanText(v);
+  // CSV: preserve IDs with leading zeroes and Excel's 15-digit precision limit.
+  if (/^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+\-]?\d+)?$/.test(s) && s.replace(/\D/g,'').length <= 15 && s.length <= 23) return 'n';
+  return 's';
+}
+function writeExcelCell(value, reference, header=false) {
+  if (value === null || value === undefined || value === '') return header ? `<c r="${reference}" s="1" t="inlineStr"><is><t></t></is></c>` : '';
+  if (header) return `<c r="${reference}" s="1" t="inlineStr"><is><t>${escapeXML(value)}</t></is></c>`;
+  const typ = typeForExcel(value);
+  if (typ==='b') return `<c r="${reference}" t="b"><v>${value?1:0}</v></c>`;
+  if (typ==='n') return `<c r="${reference}"><v>${Number(value)}</v></c>`;
+  const str = cleanText(value);
+  if (str.length > 32767) throw new Error(`XLSX는 셀당 최대 32,767자까지 지원합니다. (${reference} 셀 초과) CSV로 저장해 주세요.`);
+  return `<c r="${reference}" t="inlineStr"><is><t xml:space="preserve">${escapeXML(str)}</t></is></c>`;
+}
+function sheetXML(headers, rows) {
+  const lastCol = colRef(headers.length-1), lastRow=rows.length+1;
+  const widthSamples = headers.map(h=>cleanText(h).length);
+  for (const row of rows.slice(0,60)) for(let i=0;i<headers.length;i++) widthSamples[i]=Math.max(widthSamples[i],Math.min(40,cleanText(row[i]).length));
+  const widths = headers.map((_,i)=>`<col min="${i+1}" max="${i+1}" width="${Math.max(12,Math.min(37,widthSamples[i]+5))}" customWidth="1"/>`).join('');
+  const parts = ['<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',
+   '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">',
+   `<dimension ref="A1:${lastCol}${lastRow}"/>`,
+   '<sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>',
+   '<sheetFormatPr defaultRowHeight="17"/><cols>',widths,'</cols><sheetData>',
+   '<row r="1" ht="23" customHeight="1">'];
+  for (let c=0;c<headers.length;c++) parts.push(writeExcelCell(headers[c],`${colRef(c)}1`,true));
+  parts.push('</row>');
+  for (let r=0;r<rows.length;r++) {
+    parts.push(`<row r="${r+2}">`);
+    for (let c=0;c<headers.length;c++) {
+      const cell=writeExcelCell(rows[r][c],`${colRef(c)}${r+2}`);
+      if (cell) parts.push(cell);
+    }
+    parts.push('</row>');
+  }
+  parts.push('</sheetData>',`<autoFilter ref="A1:${lastCol}${lastRow}"/>`,'</worksheet>');
+  return parts.join('');
+}
+const styleXML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Aptos"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Aptos"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF283F85"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
+const zipCRCTable = (()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++) c=(c&1)?(0xedb88320^(c>>>1)):(c>>>1);t[n]=c>>>0;}return t;})();
+function crc32(data) {let crc=0xffffffff;for(const v of data) crc=zipCRCTable[(crc^v)&255]^(crc>>>8);return (crc^0xffffffff)>>>0;}
+function put16(a,offset,n) {a[offset]=n&255;a[offset+1]=(n>>>8)&255;}
+function put32(a,offset,n) {put16(a,offset,n&65535);put16(a,offset+2,(n>>>16)&65535);}
+function makeZip(files) {
+  const chunks=[], central=[]; let offset=0;
+  for (const [name,content] of files) {
+    const n=enc(name), body=enc(content), crc=crc32(body);
+    const head=new Uint8Array(30+n.length);
+    put32(head,0,0x04034b50);put16(head,4,20);put16(head,6,0x0800);put16(head,8,0);put32(head,14,crc);
+    put32(head,18,body.length);put32(head,22,body.length);put16(head,26,n.length);head.set(n,30);
+    chunks.push(head,body);
+    const cd=new Uint8Array(46+n.length);
+    put32(cd,0,0x02014b50);put16(cd,4,20);put16(cd,6,20);put16(cd,8,0x0800);put16(cd,10,0);
+    put32(cd,16,crc);put32(cd,20,body.length);put32(cd,24,body.length);put16(cd,28,n.length);put32(cd,42,offset);cd.set(n,46);
+    central.push(cd);offset+=head.length+body.length;
+    if (offset >= 0xffffffff) throw new Error('XLSX 출력 파일은 ZIP64 제한(4GB)을 초과합니다.');
+  }
+  const cdSize=central.reduce((n,a)=>n+a.length,0),end=new Uint8Array(22);
+  put32(end,0,0x06054b50);put16(end,8,files.length);put16(end,10,files.length);put32(end,12,cdSize);put32(end,16,offset);
+  return new Blob([...chunks,...central,end],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+}
+function exportXLSX(headers, rows) {
+  if (rows.length + 1 > 1048576 || headers.length > 16384) throw new Error('XLSX의 한 시트 제한(104만 8,576행, 16,384열)을 초과했습니다. CSV로 저장해 주세요.');
+  const contentTypes = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>`;
+  const rootRel = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`;
+  const workbook = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="병합 결과" sheetId="1" r:id="rId1"/></sheets></workbook>`;
+  const wbRels = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`;
+  return makeZip([
+    ['[Content_Types].xml',contentTypes],['_rels/.rels',rootRel],
+    ['xl/workbook.xml',workbook],['xl/_rels/workbook.xml.rels',wbRels],
+    ['xl/styles.xml',styleXML],['xl/worksheets/sheet1.xml',sheetXML(headers,rows)]
+  ]);
+}
+function csvEscape(value) {
+  let s=cleanText(value);
+  // Prevent Excel/Calc from evaluating untrusted spreadsheet formulas in CSV.
+  if (/^[\s]*[=+\-@]/.test(s) && !/^\s*-?\d+(?:\.\d+)?\s*$/.test(s)) s = "'" + s;
+  return /[",\r\n]/.test(s) ? `"${s.replace(/"/g,'""')}"` : s;
+}
+function exportCSV(headers,rows) {
+  const chunks=['\ufeff', headers.map(csvEscape).join(',')+'\r\n'];
+  for (const row of rows) chunks.push(row.map(csvEscape).join(',')+'\r\n');
+  return new Blob(chunks,{type:'text/csv;charset=utf-8'});
+}
+function saveBlob(blob,filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download=filename;
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);
+}
+
+// ---------- UI ----------
+function renderFileList() {
+  const root=$('#fileList');root.replaceChildren();
+  $('#fileCount').textContent=`(${state.files.length})`;
+  $('#clearBtn').disabled=!state.files.length;
+  if (!state.files.length) {const e=document.createElement('div');e.className='empty-state';e.textContent='선택된 파일이 없습니다.';root.appendChild(e);return;}
+  for (const entry of state.files) {
+    const item=document.createElement('div');item.className='file';
+    const icon=document.createElement('div');icon.className='file-icon '+(entry.file.name.toLowerCase().endsWith('.csv')?'csv':'');icon.textContent=entry.file.name.toLowerCase().endsWith('.csv')?'CSV':'XLSX';
+    const body=document.createElement('div');body.className='file-body';
+    const title=document.createElement('div');title.className='filename';title.title=entry.file.name;title.textContent=entry.file.name;
+    const meta=document.createElement('div');meta.className='filemeta'+(entry.error?' error':'');
+    meta.textContent=entry.error?entry.error:entry.sheets?`${byteSize(entry.file.size)} · ${entry.sheets.length}개 시트 · ${formatNumber(entry.sheets.reduce((n,s)=>n+Math.max(0,s.rows.length-($('#hasHeader').checked?1:0)),0))}개 행`:`${byteSize(entry.file.size)} · 파일 읽는 중...`;
+    body.append(title,meta);
+    const del=document.createElement('button');del.type='button';del.className='iconbtn';del.title='파일 삭제';del.setAttribute('aria-label',`${entry.file.name} 삭제`);
+    del.innerHTML='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 7h14M10 11v7m4-7v7M7 7l1 13h8l1-13M9 7V4h6v3"/></svg>';
+    del.addEventListener('click',()=>{state.files=state.files.filter(item=>item!==entry);refresh();});
+    item.append(icon,body,del);root.appendChild(item);
+  }
+}
+function renderPreview() {
+  const {headers,rows,sheets}=state.merged;
+  $('#rowCount').textContent=formatNumber(rows.length);$('#columnCount').textContent=formatNumber(headers.length);$('#sheetCount').textContent=formatNumber(sheets);
+  const root=$('#preview');root.replaceChildren();
+  if (!headers.length) {const div=document.createElement('div');div.className='preview-none';div.textContent=state.files.length?'병합할 데이터가 없습니다.':'파일을 업로드하면 병합 결과를 미리 볼 수 있습니다.';root.appendChild(div);}
+  else {
+    const holder=document.createElement('div');holder.className='preview-scroll';
+    const table=document.createElement('table');table.className='preview-table';
+    const thead=document.createElement('thead');const hr=document.createElement('tr');
+    for (const h of headers) {const th=document.createElement('th');th.textContent=h;th.title=h;hr.appendChild(th);}thead.appendChild(hr);table.appendChild(thead);
+    const tbody=document.createElement('tbody');for(const row of rows.slice(0,10)){const tr=document.createElement('tr');for(let i=0;i<headers.length;i++){const td=document.createElement('td');td.textContent=cleanText(row[i]);td.title=cleanText(row[i]);tr.appendChild(td);}tbody.appendChild(tr);}table.appendChild(tbody);holder.appendChild(table);root.appendChild(holder);
+  }
+  $('#previewNote').textContent=headers.length?`열 ${formatNumber(headers.length)}개 · 총 데이터 ${formatNumber(rows.length)}행 ${rows.length>10?'(처음 10행 미리보기)':''}`:'';
+  const oversized = rows.length + 1 > 1048576 || headers.length > 16384;
+  $('#warning').classList.toggle('show',oversized);
+  $('#warning').textContent=oversized?'Excel 시트의 행/열 제한을 초과합니다. CSV 형식으로 내려받아 주세요.':'';
+  $('#downloadBtn').disabled=!(headers.length && rows.length) || state.files.some(e=>!e.error&&!e.sheets);
+  $('#downloadText').textContent=state.files.some(e=>!e.error&&!e.sheets)?'파일 읽는 중...':'병합 파일 다운로드';
+}
+function refresh() { state.merged=buildMerged();renderFileList();renderPreview(); }
+async function addFiles(files) {
+  const candidates=Array.from(files).filter(f=>/\.(csv|xlsx)$/i.test(f.name));
+  if (files.length && candidates.length!==files.length) toast('CSV 및 XLSX 파일만 추가할 수 있습니다.');
+  const previous=new Set(state.files.map(e=>[e.file.name,e.file.size,e.file.lastModified].join('||')));
+  const next=candidates.filter(f=>{const key=[f.name,f.size,f.lastModified].join('||');if(previous.has(key))return false;previous.add(key);return true;});
+  if (!next.length) {if(candidates.length)toast('이미 추가한 파일입니다.');return;}
+  const added=next.map(file=>({id:++state.serial,file,sheets:null,error:null}));
+  state.files.push(...added);refresh();
+  await Promise.all(added.map(async entry=>{
+    try {entry.sheets=entry.file.name.toLowerCase().endsWith('.csv')?await loadCSV(entry.file):await loadXLSX(entry.file);}
+    catch(err) {entry.error=err?.message || '파일을 읽을 수 없습니다.';}
+    if (state.files.includes(entry)) refresh();
+  }));
+  const errors=added.filter(e=>e.error);
+  if (errors.length) toast(`${errors.length}개 파일을 읽지 못했습니다. 파일 목록에서 이유를 확인하세요.`);
+  else toast(`${added.length}개 파일을 추가했습니다.`);
+}
+$('#fileInput').addEventListener('change',e=>{addFiles(e.target.files);e.target.value='';});
+$('#browseBtn').addEventListener('click',e=>{e.stopPropagation();$('#fileInput').click();});
+$('#dropzone').addEventListener('click',()=>$('#fileInput').click());
+$('#dropzone').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('#fileInput').click();}});
+for(const type of ['dragenter','dragover']) $('#dropzone').addEventListener(type,e=>{e.preventDefault();$('#dropzone').classList.add('dragging');});
+for(const type of ['dragleave','drop']) $('#dropzone').addEventListener(type,e=>{e.preventDefault();$('#dropzone').classList.remove('dragging');});
+$('#dropzone').addEventListener('drop',e=>addFiles(e.dataTransfer.files));
+$('#clearBtn').addEventListener('click',()=>{state.files=[];refresh();toast('모든 파일을 목록에서 제거했습니다.');});
+for(const id of ['mergeMode','hasHeader','allSheets','addSource','skipBlank','deduplicate']) $('#'+id).addEventListener('change',refresh);
+for(const radio of document.querySelectorAll('input[name="format"]')) radio.addEventListener('change',()=>{for(const item of document.querySelectorAll('.format')) item.classList.toggle('active',item.querySelector('input').checked);});
+$('#downloadBtn').addEventListener('click',()=>{
+  const {headers,rows}=state.merged;if(!headers.length||!rows.length)return;
+  const format=document.querySelector('input[name="format"]:checked').value;
+  const btn=$('#downloadBtn');btn.disabled=true;$('#downloadText').textContent='파일 준비 중...';
+  // Defer one animation frame so the UI can display the export status.
+  requestAnimationFrame(()=>setTimeout(()=>{
+    try {
+      const blob=format==='csv'?exportCSV(headers,rows):exportXLSX(headers,rows);
+      const now=new Date();const stamp=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('');
+      saveBlob(blob,`병합_데이터_${stamp}.${format}`);
+      toast(`${format.toUpperCase()} 파일 다운로드를 시작했습니다.`);
+    } catch(err) {toast(err?.message || '파일 저장 중 오류가 발생했습니다.');}
+    finally {btn.disabled=false;$('#downloadText').textContent='병합 파일 다운로드';}
+  },40));
+});
+refresh();
+</script>
+</body>
+</html>
